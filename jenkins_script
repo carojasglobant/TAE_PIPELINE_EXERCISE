@@ -1,0 +1,28 @@
+pipeline {
+    agent any
+    environment{
+        VARIABLE = 'Cristian Rojas made thiss!'
+        repositoryUrl = 'https://github.com/carojasglobant/TAE_PIPELINE_EXERCISE.git'
+        repoDirectory = 'TAE_PIPELINE_EXERCISE'
+    }
+    stages {
+        stage('Clone Repository') {
+            steps {
+                bat "git clone ${repositoryUrl} ${repoDirectory}"
+            }
+        }
+
+        stage('compile') {
+            steps {
+                bat 'javac -d . TAE_PIPELINE_EXERCISE/src/Main.java'
+            }
+        }
+
+        stage('Run') {
+            steps {
+                bat 'java -cp . Main ${VARIABLE}'
+            }
+
+        }
+    }
+}
